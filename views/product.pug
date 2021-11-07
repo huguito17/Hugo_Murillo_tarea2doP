@@ -1,0 +1,79 @@
+extends base.pug
+
+block title
+    title Productos
+
+block container
+    header.pb-3.mb-4.border-bottom.mt-2
+        a.w-40.btn.btn-dark.btn-lg.mt-1(href="/") Inicio
+    .row.align-items-md-stretch.mt-5.mb-5
+        .col-md-5
+            .h-100.p-5.text-white.bg-dark.rounded-3.text-left
+                h1.text-center Producto
+                hr
+                if producto 
+                    form(action="/product/" + producto[0].IDP, method="post")
+                        .form-group
+                            label(for="nombrePro") Nombre
+                            input#nombreProt.form-control(type="text" name="nombrePro" required value=producto[0].NP)
+                        .form-group.mt-3
+                            label(for="precioActual") Precio
+                            input#precioActual.form-control(type="number" name="precioActual" required value=producto[0].precioActual)
+                        .form-group.mt-3
+                            label(for="stock") Existencia
+                            input#stock.form-control(type="number" name="stock" required value=producto[0].stock)                   
+                        .form-group.mt-3 
+                            label(for="id" ) Categoria
+                            select.form-select(name="id")
+                                    option(value=producto[0].IDC) #{producto[0].NC}
+                                    each c in categorias
+                                        option(value=c.id) #{c.nombreCat}
+                        .form-group.mt-3
+                            .d-grid.gap-2
+                                button.btn.btn-info Actualizar
+                                a.btn.btn-danger(href="/product") Cancelar
+                else 
+                    form(action="/product" method="post")
+                        .form-group
+                            label(for="nombrePro") Nombre
+                            input#nombrePro.form-control(type="text" name="nombrePro" required)
+                        .form-group.mt-3
+                            label(for="precioActual") Precio
+                            input#precioActual.form-control(type="number" name="precioActual" required)
+                        .form-group.mt-3
+                            label(for="stock") Existencia
+                            input#stock.form-control(type="number" name="stock" required)                   
+                        .form-group.mt-3 
+                            label(for="id") Categoria
+                            select.form-select(name="id")
+                                each c in categorias
+                                    option(value=c.id) #{c.nombreCat}
+                        .form-group.mt-3
+                            .d-grid.gap-2
+                                button.btn.btn-primary Guardar
+
+        .col-md-7
+            .h-100.p-5.bg-light.border.rounded-3
+                h1.text-center Información
+                hr
+                table.table.table-striped.table-bordered
+                    thead 
+                        tr 
+                            th Producto
+                            th Precio 
+                            th Existencia 
+                            th Categoria 
+                            th EDIT/DLT
+                    tbody
+                        each p in productos
+                            tr 
+                                td #{p.NP}
+                                td #{p.precioActual}
+                                td #{p.stock}
+                                td #{p.NC}
+                                td 
+                                    a.btn.btn-sm.btn-info.me-1(href="/product/" + p.IDP)
+                                        span(style='color: white;')
+                                            i.far.fa-edit.color
+                                    a.btn.btn-sm.btn-danger(href="/product/delete/" + p.IDP)
+                                        i.far.fa-trash-alt

@@ -1,0 +1,58 @@
+extends base.pug
+
+block title
+    title Categorias
+
+block container
+    header.pb-3.mb-4.border-bottom.mt-2
+        a.w-40.btn.btn-dark.btn-lg.mt-1(href="/") Inicio
+    .row.align-items-md-stretch.mt-5.mb-5
+        .col-md-6
+            .h-100.p-5.text-white.bg-dark.rounded-3.text-left
+                h1.text-center Categoria
+                hr
+                if categoria 
+                    form(action="/category/" + categoria[0].id, method="post")
+                        .form-group
+                        label(for="nombreCat") Nombre Categoria
+                        input#nombreCat.form-control(type="text" name="nombreCat" required value=categoria[0].nombreCat)
+                        .form-group.mt-3
+                            label(for="descripcion") Descripción
+                            input#descripcion.form-control(type="text" name="descripcion" required value=categoria[0].descripcion)
+                        .form-group.mt-3
+                            .d-grid.gap-2
+                                button.btn.btn-info Actualizar
+                                a.btn.btn-danger(href="/category") Cancelar
+                else
+                    form(action="/category" method="post")
+                        .form-group
+                            label(for="nombreCat") Nombre Categoria
+                            input#nombreCat.form-control(type="text" name="nombreCat" required)
+                        .form-group.mt-3
+                            label(for="descripcion") Descripción
+                            input#descripcion.form-control(type="text" name="descripcion" required)
+                        .form-group.mt-3
+                            .d-grid.gap-2
+                                button.btn.btn-primary Guardar
+        .col-md-6
+            .h-100.p-5.bg-light.border.rounded-3.text-left
+                h1.text-center Información
+                hr
+                table.table.table-striped.table-bordered
+                    thead 
+                        tr 
+                            th Categoria 
+                            th descripcion 
+                            th EDIT/DLT
+                    tbody
+                        each c in categorias
+                            tr 
+                                td #{c.nombreCat}
+                                td #{c.descripcion}
+                                td 
+                                    a.btn.btn-sm.btn-info.me-1(href="/category/" + c.id)
+                                        span(style='color: white;')
+                                            i.far.fa-edit.color
+                                    a.btn.btn-sm.btn-danger(href="/category/delete/" + c.id)
+                                        i.far.fa-trash-alt
+

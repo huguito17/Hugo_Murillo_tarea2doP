@@ -1,0 +1,16 @@
+extends base.pug
+
+block title
+    title Inicio
+
+block container
+    header.pb-3.mb-4.border-bottom.mt-2
+        span.fs-4 
+            strong Hugo Geovany Murillo Urbina
+    .row.align-items-md-stretch.mt-5
+        .col-md-6
+            .h-100.p-5.text-white.bg-dark.rounded-3.text-center
+                a.w-80.btn.btn-outline-light.mt-1(href="/category") categoria
+        .col-md-6
+            .h-100.p-5.bg-light.border.rounded-3.text-center
+                a.w-80.btn.btn-outline-secondary.mt-1(href="/product") Productos
